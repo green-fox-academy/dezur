@@ -13,7 +13,7 @@ int main(int argc, char *args[]) {
     // The triangle should have as many lines as the number was
     int number;
 
-    std::cout << "Enter number:";
+    std::cout << "Enter number: ";
     std::cin >> number;
 
     for (int i = 0; i < number; i++) {
