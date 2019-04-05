@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-void factorio(int, long&);
+void factorio(int, unsigned long long int&);
 
 int main(int argc, char *args[]) {
 
@@ -10,7 +10,7 @@ int main(int argc, char *args[]) {
   //   it should not return it, but take an additional integer parameter and overwrite its value.
 
   int number;
-  long result;
+  unsigned long long int result;
 
   std::cout << "Enter number\n";
   std::cin >> number;
@@ -19,7 +19,7 @@ int main(int argc, char *args[]) {
   return 0;
 }
 
-void factorio(int a, long& b) {
+void factorio(int a, unsigned long long int& b) {
   b = 1;
   for(int i = 1; i <=a; ++i)
   {
