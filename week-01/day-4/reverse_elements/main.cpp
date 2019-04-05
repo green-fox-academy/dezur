@@ -12,10 +12,10 @@ int main(int argc, char *args[]) {
 
   int temp = 0;
 
-  for (int i = 0; i < 5/2; ++i) {
+  for (int i = 0; i < 5 / 2; ++i) {
     temp = aj[i];
-    aj[i] = aj[4-i];
-    aj[4-i] = temp;
+    aj[i] = aj[4 - i];
+    aj[4 - i] = temp;
   }
 
   for (int j = 0; j < 5; ++j) {
