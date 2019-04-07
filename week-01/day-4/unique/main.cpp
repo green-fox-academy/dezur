@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-void unique(int a[],int b);
+std::string unique(int a[],int b);
 
 int main(int argc, char* args[]) {
 
@@ -11,15 +11,16 @@ int main(int argc, char* args[]) {
 
     //  Example
     int numbers[] = {1, 11, 34, 11, 52, 61, 1, 34};
-    unique(numbers, 8);
+    std::cout << unique(numbers, 8);
     //  should print: `[1, 11, 34, 52, 61]`
 
     return 0;
 }
 
-void unique(int a[],int b) {
+std::string unique(int a[],int b) {
   int hinyje[b];
   int hinyje_size = 0;
+  std::string result = "";
   for (int i = 0; i < b ; ++i) {
     bool found = false;
     for (int j = 0; j < hinyje_size ; ++j) {
@@ -33,6 +34,10 @@ void unique(int a[],int b) {
     }
   }
   for (int k = 0; k < hinyje_size; ++k) {
-    std::cout << hinyje[k] << " ";
+    result += std::to_string(hinyje[k]);
+    result += " ";
+
   }
+  return result;
+
 }
