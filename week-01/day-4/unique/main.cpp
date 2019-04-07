@@ -18,23 +18,23 @@ int main(int argc, char* args[]) {
 }
 
 std::string unique(int a[],int b) {
-  int hinyje[b];
-  int hinyje_size = 0;
+  int uniqueArray[b];
+  int uniqueArraySize = 0;
   std::string result = "";
   for (int i = 0; i < b ; ++i) {
     bool found = false;
-    for (int j = 0; j < hinyje_size ; ++j) {
-      if (a[i] == hinyje[j]) {
+    for (int j = 0; j < uniqueArraySize ; ++j) {
+      if (a[i] == uniqueArray[j]) {
         found = true;
       }
     }
     if (!found) {
-      hinyje[hinyje_size] = a[i];
-      hinyje_size++;
+      uniqueArray[uniqueArraySize] = a[i];
+      uniqueArraySize++;
     }
   }
-  for (int k = 0; k < hinyje_size; ++k) {
-    result += std::to_string(hinyje[k]);
+  for (int k = 0; k < uniqueArraySize; ++k) {
+    result += std::to_string(uniqueArray[k]);
     result += " ";
 
   }
