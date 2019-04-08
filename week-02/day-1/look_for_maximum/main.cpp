@@ -23,6 +23,7 @@ int main() {
     return 0;
 }
 
+
 int *getBiggest(int *array, int size) {
     int max = 0;
     for (int j = 0; j < size; ++j) {
