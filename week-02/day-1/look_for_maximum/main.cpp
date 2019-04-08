@@ -1,7 +1,8 @@
 #include <iostream>
 
-int main()
-{
+int *getBiggest(int *array, int size);
+
+int main() {
     // Create a program which first asks for a number
     // this number indicates how many integers we want to store in an array
     // and than asks for numbers till the user fills the array
@@ -18,13 +19,15 @@ int main()
         std::cin >> array[i];
     }
 
+    std::cout << "The biggest number is " << *getBiggest(array, size) << " at address: " << getBiggest(array, size);
+    return 0;
+}
+
+int *getBiggest(int *array, int size) {
     int max = 0;
     for (int j = 0; j < size; ++j) {
         if (array[j] > array[max])
             max = j;
     }
-
-    std::cout << "The biggest number is " << array[max] << " at address: " << &array[max];
-
-    return 0;
+    return &array[max];
 }
