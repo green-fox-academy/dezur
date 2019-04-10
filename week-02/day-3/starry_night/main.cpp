@@ -42,7 +42,7 @@ void draw() {
         SDL_RenderFillRect( gRenderer, &fillRect );
     }
 
-    
+
     isDrawCompleted = true;
 }
 
