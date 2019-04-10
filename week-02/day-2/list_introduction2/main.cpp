@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <SDL.h>
+
 
 int main() {
     std::vector<std::string> listA {"Apple", "Avocado", "Blueberries", "Durian", "Lychee"};
