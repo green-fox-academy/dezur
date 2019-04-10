@@ -41,6 +41,8 @@ void draw() {
         SDL_Rect fillRect = {rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 2, 2};
         SDL_RenderFillRect( gRenderer, &fillRect );
     }
+
+    
     isDrawCompleted = true;
 }
 
