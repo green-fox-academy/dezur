@@ -27,5 +27,5 @@ int countLines(std::string fileName)
             counter++;
         }
         return counter;
-    }   
+    }
 }
