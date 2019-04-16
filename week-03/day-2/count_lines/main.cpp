@@ -18,10 +18,14 @@ int countLines(std::string fileName)
     int counter = 0;
     std::ifstream myFile;
     myFile.open(fileName);
-    std::string text;
-    while (!myFile.eof()) {
-        getline(myFile, text);
-        counter++;
-    }
-    return counter;
+    if (!myFile.is_open()) {
+        return 0;
+    } else {
+        std::string text;
+        while (!myFile.eof()) {
+            getline(myFile, text);
+            counter++;
+        }
+        return counter;
+    }   
 }
