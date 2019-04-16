@@ -8,6 +8,7 @@ const int SCREEN_HEIGHT = 480;
 
 //Starry night parameters
 const int numberOfStars = 500;
+
 bool isDrawCompleted;
 
 //Draws geometry on the canvas
@@ -26,14 +27,6 @@ SDL_Window *gWindow = nullptr;
 SDL_Renderer *gRenderer = nullptr;
 
 void draw() {
-    // Draw the night sky:
-    //  - The background should be black
-    //  - The stars can be small squares
-    //  - The stars should have random positions on the canvas
-    //  - The stars should have random color (some shade of grey)
-    //
-    // You might have to make modifications somewhere else to create a black background ;)
-
     srand (time(NULL));
     for (int i = 0; i < numberOfStars; ++i) {
         int color = rand() % 256;
@@ -41,8 +34,6 @@ void draw() {
         SDL_Rect fillRect = {rand() % SCREEN_WIDTH, rand() % SCREEN_HEIGHT, 2, 2};
         SDL_RenderFillRect( gRenderer, &fillRect );
     }
-
-
     isDrawCompleted = true;
 }
 
