@@ -16,12 +16,12 @@ int main(int argc, char* args[])
     while(sum != 36) {
         sum = 0;
         diceSet.roll();
-        //std::cout << counter << " : ";
+        std::cout << counter << " : ";
         for (int i = 0; i < 6; ++i) {
             sum += diceSet.getCurrent(i);
-            //std::cout << diceSet.getCurrent(i) << " ";
+            std::cout << diceSet.getCurrent(i) << " ";
         }
-        //std::cout << std::endl;
+        std::cout << std::endl;
         counter++;
     }
     std::cout << "Finished: " << counter-1 << ". roll";
