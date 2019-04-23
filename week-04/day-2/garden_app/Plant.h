@@ -20,6 +20,12 @@ public:
     void setWaterAbsorb(double waterAbsorb);
     void setWaterNeeded(int waterNeeded);
 
+    std::string getPlantType() const;
+    const std::string &getColor() const;
+    double getWaterLevel() const;
+
+    int getWaterNeeded() const;
+
 private:
     Type _plantType;
     std::string _color;

@@ -16,7 +16,7 @@ bool Plant::isThirsty() {
     }
 }
 
-void Plant::watering(int waterAmount){
+void Plant::watering(int waterAmount) {
     if (isThirsty()) {
         _waterLevel += waterAmount * _waterAbsorb;
     }
@@ -28,4 +28,25 @@ void Plant::setWaterAbsorb(double waterAbsorb) {
 
 void Plant::setWaterNeeded(int waterNeeded) {
     _waterNeeded = waterNeeded;
+}
+
+std::string Plant::getPlantType() const {
+    switch (_plantType) {
+        case TREE:
+            return "tree";
+        case FLOWER:
+            return "flower";
+    }
+}
+
+const std::string &Plant::getColor() const {
+    return _color;
+}
+
+double Plant::getWaterLevel() const {
+    return _waterLevel;
+}
+
+int Plant::getWaterNeeded() const {
+    return _waterNeeded;
 }

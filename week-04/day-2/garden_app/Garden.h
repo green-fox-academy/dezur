@@ -14,6 +14,8 @@ class Garden {
 public:
     Garden(const std::string &name);
     void addPlant(Plant*);
+    void status();
+    void watering(int);
 
 private:
     std::string _name;
