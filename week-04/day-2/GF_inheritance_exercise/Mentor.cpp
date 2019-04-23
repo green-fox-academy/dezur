@@ -16,7 +16,7 @@ Mentor::Mentor() {
 
 void Mentor::introduce() {
     std::cout << "Hi, I'm " << getName() << ", a " << getAge() << " years old " << genderToString() << " "
-              << levelAsString() << " level mentor.\n";
+              << levelAsString() << " mentor.\n";
 }
 
 void Mentor::getGoal() {
