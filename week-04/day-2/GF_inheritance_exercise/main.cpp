@@ -1,15 +1,20 @@
 #include <iostream>
 #include "Person.h"
 #include "Student.h"
+#include "Mentor.h"
 
 int main() {
-    Person person("Zoli", 30, MALE);
+    Person person;
     person.introduce();
     person.getGoal();
 
-    Student student("Bela", 21, MALE, "ELTE");
+    Student student;
     student.skipDays(4);
     student.introduce();
     student.getGoal();
+
+    Mentor mentor;
+    mentor.introduce();
+    mentor.getGoal();
     return 0;
 }

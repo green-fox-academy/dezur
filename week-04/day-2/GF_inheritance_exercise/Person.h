@@ -27,6 +27,10 @@ public:
     int getAge() const;
     Gender getGender() const;
 
+    void setName(const std::string &name);
+    void setAge(int age);
+    void setGender(Gender gender);
+
 private:
     std::string _name;
     int _age;

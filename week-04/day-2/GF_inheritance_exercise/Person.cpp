@@ -23,10 +23,10 @@ void Person::getGoal(){
 
 std::string Person::genderToString(){
     switch(_gender) {
-        case MALE:
-            return "male";
         case FEMALE:
             return "female";
+        case MALE:
+            return "male";
     }
 }
 
@@ -40,4 +40,16 @@ int Person::getAge() const {
 
 Gender Person::getGender() const {
     return _gender;
+}
+
+void Person::setName(const std::string &name) {
+    _name = name;
+}
+
+void Person::setAge(int age) {
+    _age = age;
+}
+
+void Person::setGender(Gender gender) {
+    _gender = gender;
 }
