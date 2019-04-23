@@ -16,7 +16,6 @@ class Plant {
 public:
     Plant(Type plantType, const std::string &color);
     bool isThirsty();
-    void watering(int);
     void setWaterAbsorb(double waterAbsorb);
     void setWaterNeeded(int waterNeeded);
 

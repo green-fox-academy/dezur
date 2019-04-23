@@ -16,11 +16,6 @@ bool Plant::isThirsty() {
     }
 }
 
-void Plant::watering(int waterAmount) {
-    if (isThirsty()) {
-        _waterLevel += waterAmount * _waterAbsorb;
-    }
-}
 
 void Plant::setWaterAbsorb(double waterAbsorb) {
     _waterAbsorb = waterAbsorb;

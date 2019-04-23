@@ -27,9 +27,12 @@ void Garden::status(){
 
 void Garden::watering(int waterAmount){
     std::cout << "Watering with " << waterAmount << std::endl;
-    for (int i = 0; i < _plants.size(); ++i) {
-        if (_plants[i]->isThirsty()) {
-            _plants[i]->watering(waterAmount);
+    for (int j = waterAmount; j > 0 ; --j) {
+        for (int i = 0; i < _plants.size(); ++i) {
+            if (_plants[i]->isThirsty()) {
+                _plants[i]->watering(1);
+                waterAmount--;
+            }
         }
     }
 }
