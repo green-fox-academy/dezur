@@ -16,5 +16,14 @@ Sponsor::Sponsor() {
 }
 
 void Sponsor::introduce() {
-    std::cout << "Hi, I'm " << getName() << ", a " << getAge() << " year old " << genderToString()
+    std::cout << "Hi, I'm " << getName() << ", a " << getAge() << " year old " << genderToString() << " who represents "
+              << _company << " and hired " << _hiredStudents << " so far.\n";
+}
+
+void Sponsor::getGoal() {
+    std::cout << "My goal is: Hire brilliant junior software developers.\n";
+}
+
+void Sponsor::hire(){
+    _hiredStudents++;
 }

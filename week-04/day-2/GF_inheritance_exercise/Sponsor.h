@@ -8,11 +8,16 @@
 
 #include "Person.h"
 
-class Sponsor: public Person {
+class Sponsor : public Person {
 public:
     Sponsor(const std::string &name, int age, Gender gender, const std::string &company, int hiredStudents);
 
     Sponsor();
+
+    void introduce() override;
+
+    void getGoal() override;
+    void hire();
 
 private:
     std::string _company;
