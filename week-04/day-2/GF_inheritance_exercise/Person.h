@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <iostream>
 
 enum Gender {
     FEMALE,
@@ -18,9 +19,13 @@ public:
     Person(const std::string &name, int age, Gender gender);
     Person();
 
-    void introduce();
-    void getGoal();
+    virtual void introduce();
+    virtual void getGoal();
     std::string genderToString();
+
+    const std::string &getName() const;
+    int getAge() const;
+    Gender getGender() const;
 
 private:
     std::string _name;

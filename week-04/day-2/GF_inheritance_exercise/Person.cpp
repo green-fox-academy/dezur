@@ -29,3 +29,15 @@ std::string Person::genderToString(){
             return "female";
     }
 }
+
+const std::string &Person::getName() const {
+    return _name;
+}
+
+int Person::getAge() const {
+    return _age;
+}
+
+Gender Person::getGender() const {
+    return _gender;
+}
