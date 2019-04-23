@@ -23,5 +23,9 @@ int main() {
 
     garden.status();
 
+    garden.watering(70);
+
+    garden.status();
+
     return 0;
 }

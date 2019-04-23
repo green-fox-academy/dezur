@@ -38,10 +38,6 @@ const std::string &Plant::getColor() const {
     return _color;
 }
 
-double Plant::getWaterLevel() const {
-    return _waterLevel;
-}
-
-int Plant::getWaterNeeded() const {
-    return _waterNeeded;
+void Plant::increaseWaterLevel(float water) {
+    _waterLevel+= water * _waterAbsorb;
 }

@@ -9,11 +9,11 @@ Garden::Garden(const std::string &name) : _name(name) {
     _plants.clear();
 }
 
-void Garden::addPlant(Plant *plant){
+void Garden::addPlant(Plant *plant) {
     _plants.push_back(plant);
 }
 
-void Garden::status(){
+void Garden::status() {
     std::string thirstyStatus;
     for (int i = 0; i < _plants.size(); ++i) {
         if (_plants[i]->isThirsty()) {
@@ -21,18 +21,17 @@ void Garden::status(){
         } else {
             thirstyStatus = "doesnt need water";
         }
-        std::cout << _plants[i]->getColor() << " " << _plants[i]->getPlantType() << " " << thirstyStatus << std::endl;
+        std::cout << _plants[i]->getColor() << " " << _plants[i]->getPlantType() << " " << thirstyStatus << " "
+                  << std::endl;
     }
 }
 
-void Garden::watering(int waterAmount){
+void Garden::watering(int waterAmount) {
     std::cout << "Watering with " << waterAmount << std::endl;
-    for (int j = waterAmount; j > 0 ; --j) {
-        for (int i = 0; i < _plants.size(); ++i) {
-            if (_plants[i]->isThirsty()) {
-                _plants[i]->watering(1);
-                waterAmount--;
-            }
+    float waterPerPlant = waterAmount / _plants.size();
+    for (int i = 0; i < _plants.size(); ++i) {
+        if (_plants[i]->isThirsty()) {
+            _plants[i]->increaseWaterLevel(waterPerPlant);
         }
     }
 }
