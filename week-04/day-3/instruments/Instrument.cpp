@@ -4,6 +4,7 @@
 
 #include "Instrument.h"
 
-void Instrument::play(){
+void Instrument::play()
+{
 
 }

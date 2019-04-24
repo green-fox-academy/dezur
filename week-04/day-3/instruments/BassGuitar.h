@@ -8,13 +8,13 @@
 
 #include "StringedInstrument.h"
 
-class BassGuitar : public StringedInstrument {
+class BassGuitar : public StringedInstrument
+{
 public:
     BassGuitar();
     BassGuitar(int);
     std::string sound();
     void play();
-
 };
 
 

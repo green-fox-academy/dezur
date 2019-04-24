@@ -8,21 +8,17 @@
 
 #include "Instrument.h"
 
-class StringedInstrument : public Instrument {
+class StringedInstrument : public Instrument
+{
 public:
     virtual std::string sound() = 0;
-
+    void setStrings(int strings);
+    void setSounds(const std::string &sounds);
+    const std::string &getSounds() const;
+    int getStrings() const;
 private:
     int _strings;
     std::string _sounds;
-public:
-    void setStrings(int strings);
-
-    void setSounds(const std::string &sounds);
-
-    const std::string &getSounds() const;
-
-    int getStrings() const;
 };
 
 

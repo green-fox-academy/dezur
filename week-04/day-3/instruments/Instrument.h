@@ -8,9 +8,11 @@
 
 #include <iostream>
 
-class Instrument {
+class Instrument
+{
 public:
     virtual void play() = 0;
+
 protected:
     std::string _name;
 };

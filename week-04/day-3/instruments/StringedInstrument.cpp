@@ -4,18 +4,22 @@
 
 #include "StringedInstrument.h"
 
-void StringedInstrument::setStrings(int strings) {
+void StringedInstrument::setStrings(int strings)
+{
     _strings = strings;
 }
 
-void StringedInstrument::setSounds(const std::string &sounds) {
+void StringedInstrument::setSounds(const std::string &sounds)
+{
     _sounds = sounds;
 }
 
-const std::string &StringedInstrument::getSounds() const {
+const std::string &StringedInstrument::getSounds() const
+{
     return _sounds;
 }
 
-int StringedInstrument::getStrings() const {
+int StringedInstrument::getStrings() const
+{
     return _strings;
 }
