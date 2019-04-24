@@ -11,3 +11,11 @@ void StringedInstrument::setStrings(int strings) {
 void StringedInstrument::setSounds(const std::string &sounds) {
     _sounds = sounds;
 }
+
+const std::string &StringedInstrument::getSounds() const {
+    return _sounds;
+}
+
+int StringedInstrument::getStrings() const {
+    return _strings;
+}

@@ -11,6 +11,8 @@
 class ElectricGuitar : public StringedInstrument{
 public:
     ElectricGuitar();
+    void play();
+    std::string sound();
 
 };
 

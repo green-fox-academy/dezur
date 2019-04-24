@@ -9,6 +9,11 @@ BassGuitar::BassGuitar() {
     setSounds("Duum-duum-dumm");
 }
 
-void BassGuitar::play() {
-
+std::string BassGuitar::sound() {
+    return getSounds();
 }
+
+void BassGuitar::play() {
+    std::cout << "Bass guitar, a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
+}
+

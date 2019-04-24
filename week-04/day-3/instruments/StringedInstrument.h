@@ -10,7 +10,7 @@
 
 class StringedInstrument : public Instrument {
 public:
-    virtual void sound() = 0;
+    virtual std::string sound() = 0;
 
 private:
     int _strings;
@@ -19,6 +19,10 @@ public:
     void setStrings(int strings);
 
     void setSounds(const std::string &sounds);
+
+    const std::string &getSounds() const;
+
+    int getStrings() const;
 };
 
 

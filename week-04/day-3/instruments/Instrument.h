@@ -6,7 +6,7 @@
 #define INSTRUMENTS_INSTRUMENT_H
 
 
-#include <string>
+#include <iostream>
 
 class Instrument {
 public:

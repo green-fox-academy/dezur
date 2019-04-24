@@ -11,6 +11,7 @@
 class BassGuitar : public StringedInstrument {
 public:
     BassGuitar();
+    std::string sound();
     void play();
 
 };

@@ -8,3 +8,11 @@ Violin::Violin() {
     setStrings(4);
     setSounds("Screech");
 }
+
+void Violin::play() {
+    std::cout << "Violin, a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
+}
+
+std::string Violin::sound() {
+    return getSounds();
+}
