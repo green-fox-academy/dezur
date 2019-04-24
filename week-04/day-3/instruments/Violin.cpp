@@ -7,15 +7,17 @@
 Violin::Violin() {
     setStrings(4);
     setSounds("Screech");
+    _name = "Violin";
 }
 
 Violin::Violin(int numOfStrings) {
     setStrings(numOfStrings);
     setSounds("Screech");
+    _name = "Violin";
 }
 
 void Violin::play() {
-    std::cout << "Violin, a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
+    std::cout << _name << ", a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
 }
 
 std::string Violin::sound() {

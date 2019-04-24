@@ -12,7 +12,7 @@ class Instrument {
 public:
     virtual void play() = 0;
 protected:
-    std::string name;
+    std::string _name;
 };
 
 
