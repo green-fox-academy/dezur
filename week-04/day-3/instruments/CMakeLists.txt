@@ -3,4 +3,4 @@ project(instruments)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(instruments main.cpp Instrument.cpp Instrument.h)
+add_executable(instruments main.cpp Instrument.cpp Instrument.h StringedInstrument.cpp StringedInstrument.h)
