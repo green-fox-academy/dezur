@@ -9,7 +9,16 @@
 #include "Instrument.h"
 
 class StringedInstrument : public Instrument {
+public:
+    virtual void sound() = 0;
 
+private:
+    int _strings;
+    std::string _sounds;
+public:
+    void setStrings(int strings);
+
+    void setSounds(const std::string &sounds);
 };
 
 
