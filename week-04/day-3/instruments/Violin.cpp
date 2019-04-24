@@ -9,6 +9,11 @@ Violin::Violin() {
     setSounds("Screech");
 }
 
+Violin::Violin(int numOfStrings) {
+    setStrings(numOfStrings);
+    setSounds("Screech");
+}
+
 void Violin::play() {
     std::cout << "Violin, a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
 }

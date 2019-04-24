@@ -9,6 +9,11 @@ BassGuitar::BassGuitar() {
     setSounds("Duum-duum-dumm");
 }
 
+BassGuitar::BassGuitar(int numOfStrings) {
+    setStrings(numOfStrings);
+    setSounds("Duum-duum-dumm");
+}
+
 std::string BassGuitar::sound() {
     return getSounds();
 }

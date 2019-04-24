@@ -9,6 +9,11 @@ ElectricGuitar::ElectricGuitar() {
     setSounds("Twang");
 }
 
+ElectricGuitar::ElectricGuitar(int numOfStrings){
+    setStrings(numOfStrings);
+    setSounds("Twang");
+};
+
 void ElectricGuitar::play() {
     std::cout << "Electric guitar, a " << getStrings() << "-stringed instrument that goes " << sound() << std::endl;
 }

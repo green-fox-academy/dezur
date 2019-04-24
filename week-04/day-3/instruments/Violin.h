@@ -11,6 +11,7 @@
 class Violin : public StringedInstrument{
 public:
     Violin();
+    Violin(int);
     void play();
     std::string sound();
 
