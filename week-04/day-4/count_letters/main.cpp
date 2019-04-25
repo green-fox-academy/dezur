@@ -3,6 +3,5 @@
 
 int main()
 {
-    countLetters("Hinyjehe");
     return 0;
 }
