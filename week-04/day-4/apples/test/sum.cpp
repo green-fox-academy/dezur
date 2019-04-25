@@ -16,3 +16,15 @@ TEST(sumTesting, testSumOfVectorElements)
     // Assert
     ASSERT_EQ(result, 28);
 }
+
+TEST(sumTesting, testSumOfVectorElementsIfListIsEmpty)
+{
+    // Arrange
+    std::vector<int> listOfIntegers ;
+
+    // Act
+    int result = sum(listOfIntegers);
+
+    // Assert
+    ASSERT_EQ(result, 0);
+}
