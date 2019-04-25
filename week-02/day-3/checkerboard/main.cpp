@@ -1,12 +1,13 @@
 #include <iostream>
 #include <SDL.h>
+#include <unistd.h>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 480;
 const int SCREEN_HEIGHT = 480;
 
 //Box size constant
-const int boxSize = 20;
+int boxSize = 1;
 
 //Draws geometry on the canvas
 void draw();
@@ -23,9 +24,12 @@ SDL_Window *gWindow = nullptr;
 //The window renderer
 SDL_Renderer *gRenderer = nullptr;
 
-void draw() {
-    for (int j = 0; j < SCREEN_HEIGHT / boxSize; ++j) {
-        for (int i = 0; i < SCREEN_WIDTH / boxSize; ++i) {
+void draw()
+{
+    if (boxSize > SCREEN_WIDTH / 2)
+        boxSize = 1;
+    for (int j = 0; j < SCREEN_HEIGHT / boxSize + boxSize; ++j) {
+        for (int i = 0; i < SCREEN_WIDTH / boxSize + boxSize; ++i) {
             if (i % 2 != j % 2) {
                 SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 0);
             } else {
@@ -35,9 +39,11 @@ void draw() {
             SDL_RenderFillRect(gRenderer, &fillRect);
         }
     }
+    boxSize++;
 }
 
-bool init() {
+bool init()
+{
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cout << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
@@ -69,7 +75,8 @@ bool init() {
     return true;
 }
 
-void close() {
+void close()
+{
     //Destroy window
     SDL_DestroyRenderer(gRenderer);
     SDL_DestroyWindow(gWindow);
@@ -79,7 +86,8 @@ void close() {
     SDL_Quit();
 }
 
-int main(int argc, char *args[]) {
+int main(int argc, char *args[])
+{
     //Start up SDL and create window
     if (!init()) {
         std::cout << "Failed to initialize!" << std::endl;
@@ -106,7 +114,7 @@ int main(int argc, char *args[]) {
         //Clear screen
         SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(gRenderer);
-
+        usleep(10000);
         draw();
 
         //Update screen
