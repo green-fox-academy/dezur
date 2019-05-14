@@ -24,6 +24,7 @@ main()
 
 int checkString(char string1[], char string2[])
 {
+    printf("%s\n", string1);
     if (strlen(string1) == strlen(string2)) {
         for (int i = 0; string1[i]; i++) {
             string1[i] = tolower(string1[i]);
