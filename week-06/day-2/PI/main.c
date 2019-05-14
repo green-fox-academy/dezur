@@ -5,9 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define PI 3.14
-
-float getArea(int);
+#include "circle.h"
 
 int main()
 {
@@ -16,10 +14,6 @@ int main()
     printf("Enter radius:\n");
     scanf("%d", &radius);
     printf("Surface: %.2f\n", getArea(radius));
+    printf("Circumference: %.2f\n", getCircumference(radius));
     return 0;
-}
-
-float getArea(int radius)
-{
-    return radius * radius * PI;
 }

@@ -3,4 +3,4 @@ project(PI C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(PI main.c)
+add_executable(PI main.c circle.c circle.h)
