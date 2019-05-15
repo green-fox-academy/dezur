@@ -47,7 +47,7 @@ int main()
 
     int size = sizeof(houses) / sizeof(house_t);
     printf("%d", countWorth(houses, size));
-    
+
     return 0;
 }
 
