@@ -10,23 +10,28 @@ int str_length(char *str);
 
 int main()
 {
-    char string1[] = "hehehe\nlkjdglkjsgh.dfnlkdh\njyhdfgkjydsg\tydhdah";
+    char string1[] = "hehehehihihi";
     char string2[] = "hahaha";
 
-    printf("%s", concat_strings(string1, string2));
+    char *str = concat_strings(string1, string2);
+
+    printf("%s", str);
+
+    free(str);
+    str = NULL;
 
     return 0;
 }
 
 char *concat_strings(char *str1, char *str2)
 {
-    char *string = (char *) calloc(sizeof(char), str_length(str1) + str_length(str2));
+    char *string = (char *) calloc(sizeof(char), str_length(str1) + str_length(str2) + 1);
 
     for (int i = 0; i < str_length(str1); ++i) {
         string[i] = str1[i];
     }
     for (int j = 0; j < str_length(str2); ++j) {
-        string[str_length(str1)+j] = str2[j];
+        string[str_length(str1) + j] = str2[j];
     }
 
     return string;
@@ -39,7 +44,6 @@ int str_length(char *str)
     while (*(str++) != '\0') {
         counter++;
     }
-    str -= counter + 1;
 
     return counter;
 }
