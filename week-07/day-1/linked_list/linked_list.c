@@ -6,7 +6,7 @@
 
 void append(linked_list_t *head, int data)
 {
-    linked_list_t *new_node = (linked_list_t *)malloc(sizeof(linked_list_t));
+    linked_list_t *new_node = (linked_list_t *) malloc(sizeof(linked_list_t));
     new_node->data = data;
     new_node->next = NULL;
 
@@ -19,16 +19,16 @@ void append(linked_list_t *head, int data)
 
 void prepend1(linked_list_t *head, int data)
 {
-    linked_list_t *new_node = (linked_list_t *)malloc(sizeof(linked_list_t));
+    linked_list_t *new_node = (linked_list_t *) malloc(sizeof(linked_list_t));
     new_node->data = data;
 
     new_node->next = head->next;
     head->next = new_node;
 }
 
-linked_list_t* prepend2(linked_list_t *head, int data)
+linked_list_t *prepend2(linked_list_t *head, int data)
 {
-    linked_list_t *new_node = (linked_list_t *)malloc(sizeof(linked_list_t));
+    linked_list_t *new_node = (linked_list_t *) malloc(sizeof(linked_list_t));
     new_node->data = 0;
 
     new_node->next = head;
@@ -38,7 +38,7 @@ linked_list_t* prepend2(linked_list_t *head, int data)
 
 void prepend3(linked_list_t **head, int data)
 {
-    linked_list_t *new_node = (linked_list_t *)malloc(sizeof(linked_list_t));
+    linked_list_t *new_node = (linked_list_t *) malloc(sizeof(linked_list_t));
     new_node->data = 0;
 
     new_node->next = *head;
@@ -48,8 +48,7 @@ void prepend3(linked_list_t **head, int data)
 
 void printList(linked_list_t *head)
 {
-    while (head->next != NULL)
-    {
+    while (head->next != NULL) {
         printf("%d\n", head->next->data);
         head = head->next;
     }
@@ -58,17 +57,16 @@ void printList(linked_list_t *head)
 int size(linked_list_t *head)
 {
     int counter = 0;
-    while (head->next != NULL)
-    {
+    while (head->next != NULL) {
         counter++;
         head = head->next;
     }
     return counter;
 }
 
-linked_list_t* create_node(int data)
+linked_list_t *create_node(int data)
 {
-    linked_list_t *head = (linked_list_t *)malloc(sizeof(linked_list_t));
+    linked_list_t *head = (linked_list_t *) malloc(sizeof(linked_list_t));
     head->data = 0;
     head->next = NULL;
 
