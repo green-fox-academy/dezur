@@ -74,3 +74,10 @@ linked_list_t* create_node(int data)
 
     return head;
 }
+
+int is_empty(linked_list_t *head)
+{
+    if ((head->next) == NULL)
+        return 1;
+    return 0;
+}

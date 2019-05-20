@@ -30,3 +30,5 @@ void printList(linked_list_t *head);
 int size(linked_list_t *head);
 
 linked_list_t* create_node(int data);
+
+int is_empty(linked_list_t *head);
