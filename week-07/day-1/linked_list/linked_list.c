@@ -54,3 +54,14 @@ void printList(linked_list_t *head)
         head = head->next;
     }
 }
+
+int size(linked_list_t *head)
+{
+    int counter = 0;
+    while (head != NULL)
+    {
+        counter++;
+        head = head->next;
+    }
+    return counter;
+}

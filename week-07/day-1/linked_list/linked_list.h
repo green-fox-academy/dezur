@@ -14,7 +14,7 @@
 typedef struct linked_list_t
 {
     int data;
-    struct linked_list_t *next;     /* linked_list_t is not defined here yet */
+    struct linked_list_t *next;
 } linked_list_t;
 
 void append(linked_list_t *head, int data);
@@ -26,3 +26,5 @@ linked_list_t *prepend2(linked_list_t *head, int data);
 void prepend3(linked_list_t **head, int data);
 
 void printList(linked_list_t *head);
+
+int size(linked_list_t *head);
