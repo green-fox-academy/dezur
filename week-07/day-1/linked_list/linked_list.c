@@ -81,3 +81,10 @@ int is_empty(linked_list_t *head)
         return 1;
     return 0;
 }
+
+void delete_first(linked_list_t *head)
+{
+    linked_list_t *second_loc = head->next->next;
+    free(head->next);
+    head->next = second_loc;
+}

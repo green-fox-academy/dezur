@@ -9,6 +9,8 @@ int main()
     append(head, 12);
     append(head, 24);
 
+    delete_first(head);
+
     //prepend1(head, -1);
 
     //head = prepend2(head, -2);
