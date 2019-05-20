@@ -16,8 +16,6 @@ int main()
 
     printList(head);
 
-    printf("\n-----------------------------------\n");
-
     printf("List contains %d item(s)\n", size(head));
     return 0;
 }

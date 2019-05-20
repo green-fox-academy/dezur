@@ -48,9 +48,9 @@ void prepend3(linked_list_t **head, int data)
 
 void printList(linked_list_t *head)
 {
-    while (head != NULL)
+    while (head->next != NULL)
     {
-        printf("%d\n", head->data);
+        printf("%d\n", head->next->data);
         head = head->next;
     }
 }
@@ -58,7 +58,7 @@ void printList(linked_list_t *head)
 int size(linked_list_t *head)
 {
     int counter = 0;
-    while (head != NULL)
+    while (head->next != NULL)
     {
         counter++;
         head = head->next;
