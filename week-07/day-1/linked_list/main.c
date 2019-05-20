@@ -8,25 +8,14 @@ int main()
     head->next = NULL;
 
     append(head, 1);
-    printf("%d\n", head->next->data);
     append(head, 2);
-    printf("%d\n", head->next->next->data);
-
 
     prepend1(head, -1);
-    printf("%d\n", head->next->data);
-
 
     head = prepend2(head, -2);
-    printf("%d\n", head->next->data);
-
+    
     prepend3(&head , -3);
-    printf("%d\n", head->next->data);
 
-    while (head != NULL)
-    {
-        printf("%d ", head->data);
-        head = head->next;
-    }
+    printList(head);
     return 0;
 }

@@ -45,3 +45,12 @@ void prepend3(linked_list_t **head, int data)
     (*head)->data = data;
     *head = new_node;
 }
+
+void printList(linked_list_t *head)
+{
+    while (head != NULL)
+    {
+        printf("%d ", head->data);
+        head = head->next;
+    }
+}

@@ -24,3 +24,5 @@ void prepend1(linked_list_t *head, int data);
 linked_list_t *prepend2(linked_list_t *head, int data);
 
 void prepend3(linked_list_t **head, int data);
+
+void printList(linked_list_t *head);
