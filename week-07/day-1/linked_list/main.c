@@ -23,6 +23,10 @@ int main()
     prepend3(&head , -3);
     printf("%d\n", head->next->data);
 
-    //printf("Hello, World!\n");
+    while (head != NULL)
+    {
+        printf("%d ", head->data);
+        head = head->next;
+    }
     return 0;
 }
