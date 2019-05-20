@@ -50,7 +50,7 @@ void printList(linked_list_t *head)
 {
     while (head != NULL)
     {
-        printf("%d ", head->data);
+        printf("%d\n", head->data);
         head = head->next;
     }
 }
@@ -64,4 +64,13 @@ int size(linked_list_t *head)
         head = head->next;
     }
     return counter;
+}
+
+linked_list_t* create_node(int data)
+{
+    linked_list_t *head = (linked_list_t *)malloc(sizeof(linked_list_t));
+    head->data = 0;
+    head->next = NULL;
+
+    return head;
 }

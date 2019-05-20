@@ -3,9 +3,7 @@
 
 int main()
 {
-    linked_list_t *head = (linked_list_t *)malloc(sizeof(linked_list_t));
-    head->data = 0;
-    head->next = NULL;
+    linked_list_t *head = create_node(0);
 
     append(head, 1);
     append(head, 2);

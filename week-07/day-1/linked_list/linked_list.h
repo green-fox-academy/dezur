@@ -28,3 +28,5 @@ void prepend3(linked_list_t **head, int data);
 void printList(linked_list_t *head);
 
 int size(linked_list_t *head);
+
+linked_list_t* create_node(int data);
