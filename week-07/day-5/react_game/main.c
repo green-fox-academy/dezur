@@ -22,7 +22,7 @@ void LCD_Init()
 int main(void)
 {
     char buffer[100];
-    uint32_t now, react_time, randx, randy, time, avg;
+    uint32_t now, react_time, randx, randy, time, counter = 0;
     int status = 0;
 
     SystemClock_Config();
@@ -51,6 +51,7 @@ int main(void)
             HAL_Delay(time);
             BSP_LCD_FillRect(randx, randy, 50, 50);
             now = HAL_GetTick();
+            counter++;
         }
         BSP_TS_GetState(&ts_state);
         if (status == 1 && ts_state.touchDetected && ts_state.touchX[0] > randx && ts_state.touchX[0] < randx + 50 && ts_state.touchY[0] > randy && ts_state.touchY[0] < randy + 50)
@@ -65,6 +66,14 @@ int main(void)
             HAL_Delay(time);
             BSP_LCD_FillRect(randx, randy, 50, 50);
             now = HAL_GetTick();
+            if (counter < 10){
+                counter++;
+            } else {
+                status = 2;
+            }
+        }
+        if (status == 2) {
+            BSP_LCD_DisplayStringAt(0, 120, "GAME OVER", CENTER_MODE);
         }
     }
 }
