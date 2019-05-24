@@ -22,8 +22,9 @@ void LCD_Init()
 int main(void)
 {
     char buffer[100];
-    uint32_t now, react_time, randx, randy, time, counter = 0;
+    uint32_t now, react_time, randx, randy, time, counter = 0, sum = 0, avg = 0;
     int status = 0;
+    uint32_t results[10];
 
     SystemClock_Config();
     HAL_Init();
@@ -63,17 +64,32 @@ int main(void)
             react_time = HAL_GetTick() - now;
             sprintf(buffer, "%d ms", react_time);
             BSP_LCD_DisplayStringAtLine(0, buffer);
+            results[counter-1] = react_time;
             HAL_Delay(time);
             BSP_LCD_FillRect(randx, randy, 50, 50);
             now = HAL_GetTick();
-            if (counter < 10){
+            if (counter < 10)
+            {
                 counter++;
-            } else {
+            }
+            else
+            {
                 status = 2;
             }
         }
-        if (status == 2) {
-            BSP_LCD_DisplayStringAt(0, 120, "GAME OVER", CENTER_MODE);
+        if (status == 2)
+        {
+            if (avg == 0)
+            {
+                BSP_LCD_DisplayStringAt(0, 120, "GAME OVER", CENTER_MODE);
+                for (int i = 0; i < 10; i++)
+                {
+                    sum += results[i];
+                }
+                avg = sum / 10;
+                sprintf(buffer, "Average: %d ms", avg);
+                BSP_LCD_DisplayStringAt(0, 140, buffer, CENTER_MODE);
+            }
         }
     }
 }
