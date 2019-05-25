@@ -8,24 +8,20 @@
 
 static void Error_Handler(void);
 static void SystemClock_Config(void);
+static void LCD_Init();
+static void home_screen(RNG_HandleTypeDef, TS_StateTypeDef);
+static void create_box(RNG_HandleTypeDef);
+static int box_touched(TS_StateTypeDef);
+static void game_over(void);
 
-void LCD_Init()
-{
-    BSP_LCD_Init();
-    BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS);
-    BSP_LCD_SelectLayer(1);
-    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
-    BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
-    BSP_LCD_Clear(LCD_COLOR_WHITE);
-}
+uint32_t randx, randy, time;
+char buffer[100];
+uint32_t now, react_time, counter = 0, sum = 0, avg = 0;
+int status = 0;
+int results[10];
 
 int main(void)
 {
-    char buffer[100];
-    uint32_t now, react_time, randx, randy, time, counter = 0, sum = 0, avg = 0;
-    int status = 0;
-    uint32_t results[10];
-
     SystemClock_Config();
     HAL_Init();
     LCD_Init();
@@ -35,66 +31,100 @@ int main(void)
     rng_handle.Instance = RNG;
     HAL_RNG_Init(&rng_handle);
 
-    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
-
-    BSP_LCD_DisplayStringAt(0, 120, "Touch to start!", CENTER_MODE);
-
     while (1)
     {
         BSP_TS_GetState(&ts_state);
-        if (ts_state.touchDetected && status == 0)
-        {
-            status = 1;
-            BSP_LCD_Clear(LCD_COLOR_WHITE);
-            randx = HAL_RNG_GetRandomNumber(&rng_handle) % 430;
-            randy = HAL_RNG_GetRandomNumber(&rng_handle) % 220;
-            time = HAL_RNG_GetRandomNumber(&rng_handle) % 2500 + 500;
-            HAL_Delay(time);
-            BSP_LCD_FillRect(randx, randy, 50, 50);
-            now = HAL_GetTick();
-            counter++;
-        }
-        BSP_TS_GetState(&ts_state);
-        if (status == 1 && ts_state.touchDetected && ts_state.touchX[0] > randx && ts_state.touchX[0] < randx + 50 && ts_state.touchY[0] > randy && ts_state.touchY[0] < randy + 50)
-        {
-            BSP_LCD_Clear(LCD_COLOR_WHITE);
-            randx = HAL_RNG_GetRandomNumber(&rng_handle) % 430;
-            randy = HAL_RNG_GetRandomNumber(&rng_handle) % 220;
-            time = HAL_RNG_GetRandomNumber(&rng_handle) % 2500 + 500;
-            react_time = HAL_GetTick() - now;
-            sprintf(buffer, "%d ms", react_time);
-            BSP_LCD_DisplayStringAtLine(0, buffer);
-            results[counter-1] = react_time;
-            HAL_Delay(time);
-            BSP_LCD_FillRect(randx, randy, 50, 50);
-            now = HAL_GetTick();
-            if (counter < 10)
-            {
-                counter++;
-            }
-            else
-            {
-                status = 2;
-            }
-        }
-        if (status == 2)
-        {
-            if (avg == 0)
-            {
-                BSP_LCD_DisplayStringAt(0, 120, "GAME OVER", CENTER_MODE);
-                for (int i = 0; i < 10; i++)
-                {
-                    sum += results[i];
-                }
-                avg = sum / 10;
-                sprintf(buffer, "Average: %d ms", avg);
-                BSP_LCD_DisplayStringAt(0, 140, buffer, CENTER_MODE);
-            }
+
+        switch (status){
+            case 0: home_screen(rng_handle, ts_state);
+                    break;
+            case 1: if (box_touched(ts_state))
+                        create_box(rng_handle);
+                    break;
+            case 2: game_over();
+                    break;
         }
     }
 }
 
+static void home_screen(RNG_HandleTypeDef rng_handle, TS_StateTypeDef ts_state)
+{
+    sum = 0;
+    counter = 0;
+    BSP_LCD_SetTextColor(LCD_COLOR_BLACK);
+    BSP_LCD_DisplayStringAt(0, 120, "Touch to start!", CENTER_MODE);
+    if (ts_state.touchDetected)
+    {
+        status = 1;
+        create_box(rng_handle);
+    }
+}
+
+static void create_box(RNG_HandleTypeDef rng_handle)
+{
+    randx = HAL_RNG_GetRandomNumber(&rng_handle) % 430;
+    randy = HAL_RNG_GetRandomNumber(&rng_handle) % 200 + 20;
+    time = HAL_RNG_GetRandomNumber(&rng_handle) % 2500 + 500;
+    if (counter < 10)
+    {
+        BSP_LCD_Clear(LCD_COLOR_WHITE);
+        if (counter > 0)
+        {
+            react_time = HAL_GetTick() - now;
+            sprintf(buffer, "%d ms", react_time);
+            BSP_LCD_DisplayStringAtLine(0, buffer);
+            results[counter - 1] = react_time;
+        }
+        HAL_Delay(time);
+        BSP_LCD_FillRect(randx, randy, 50, 50);
+        now = HAL_GetTick();
+    }
+    else
+    {
+        status = 2;
+    }
+    counter++;
+}
+
+static int box_touched(TS_StateTypeDef ts_state)
+{
+    BSP_TS_GetState(&ts_state);
+    if (ts_state.touchDetected && ts_state.touchX[0] > randx && ts_state.touchX[0] < randx + 50 && ts_state.touchY[0] > randy && ts_state.touchY[0] < randy + 50)
+        return 1;
+    else
+        return 0;
+}
+
+static void game_over()
+{
+    while (status == 2)
+    {
+        BSP_LCD_Clear(LCD_COLOR_WHITE);
+        BSP_LCD_DisplayStringAt(0, 120, "GAME OVER", CENTER_MODE);
+        for (int i = 0; i < 10; i++)
+        {
+            sum += results[i];
+        }
+        avg = sum / 10;
+        sprintf(buffer, "Average: %d ms", avg);
+        BSP_LCD_DisplayStringAt(0, 150, buffer, CENTER_MODE);
+        counter++;
+        HAL_Delay(5000);
+        status = 0;
+    }
+}
+
+
 ///////////////////////////// You shouldn't write any code beyond this point //////////////////////////////
+static void LCD_Init()
+{
+    BSP_LCD_Init();
+    BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS);
+    BSP_LCD_SelectLayer(1);
+    BSP_LCD_SetFont(&LCD_DEFAULT_FONT);
+    BSP_LCD_SetBackColor(LCD_COLOR_WHITE);
+    BSP_LCD_Clear(LCD_COLOR_WHITE);
+}
 
 static void Error_Handler(void)
 {
