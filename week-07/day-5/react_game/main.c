@@ -19,6 +19,7 @@ char buffer[100];
 uint32_t now, react_time, counter = 0, sum = 0, avg = 0;
 int status = 0;
 int results[10];
+int offset = 20;
 
 int main(void)
 {
@@ -70,7 +71,7 @@ static void create_box(RNG_HandleTypeDef rng_handle)
         BSP_LCD_Clear(LCD_COLOR_WHITE);
         if (counter > 0)
         {
-            react_time = HAL_GetTick() - now;
+            react_time = HAL_GetTick() - now - 4;
             sprintf(buffer, "%d ms", react_time);
             BSP_LCD_DisplayStringAtLine(0, buffer);
             results[counter - 1] = react_time;
@@ -89,7 +90,8 @@ static void create_box(RNG_HandleTypeDef rng_handle)
 static int box_touched(TS_StateTypeDef ts_state)
 {
     BSP_TS_GetState(&ts_state);
-    if (ts_state.touchDetected && ts_state.touchX[0] > randx && ts_state.touchX[0] < randx + 50 && ts_state.touchY[0] > randy && ts_state.touchY[0] < randy + 50)
+    if (ts_state.touchDetected && ts_state.touchX[0] > randx  - offset && ts_state.touchX[0] < randx + 50 + offset  && 
+    ts_state.touchX[0] < randx + 50 + offset && ts_state.touchY[0] > randy - offset && ts_state.touchY[0] < randy + 50 + offset)
         return 1;
     else
         return 0;
