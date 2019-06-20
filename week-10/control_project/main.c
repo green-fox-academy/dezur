@@ -13,13 +13,16 @@ GPIO_InitTypeDef ic_gpio;
 
 void SystemClock_Config(void);
 static void Error_Handler(void);
+int get_rpm(int);
 
 volatile uint8_t pwm_val = 0;
 volatile uint8_t uart_flag = 0;
 volatile uint8_t buffer = 0;
 volatile uint8_t *text;
-volatile uint8_t vane_counter = 0;
-volatile uint16_t infra_data;
+volatile uint8_t blade_counter = 0;
+volatile uint16_t period_counter = 0;
+volatile uint16_t fan_rpm;
+volatile uint32_t fan_round_counter = 0;
 
 void init_uart()
 {
@@ -160,6 +163,12 @@ int main(void)
 
     int adc_val, adc_val_pwm;
 
+    printf("---------------------------\n");
+    printf("Closed loop control project\n");
+    printf("     WORK IN PROGRESS\n");
+    printf("---------------------------\n");
+
+
     while (1) {
         if (uart_flag == 1){
             pwm_val = atoi(text);
@@ -170,9 +179,9 @@ int main(void)
         HAL_ADC_Start(&adc_handle);
         adc_val = HAL_ADC_GetValue(&adc_handle);
         adc_val_pwm = ((float)adc_val / 4095) * 100;
-        printf("ADC: %d (%d%%)| PWM: %d\n", adc_val, adc_val_pwm, pwm_val);
+        printf("PWM: %d | RPM: %d | CNT: %d\n", pwm_val, fan_rpm, fan_round_counter);
         __HAL_TIM_SET_COMPARE(&timer_handle, TIM_CHANNEL_1, pwm_val);
-        HAL_Delay(250);
+        HAL_Delay(500);
     }
 }
 
@@ -200,14 +209,30 @@ void TIM2_IRQHandler(void)
 
 void HAL_TIM_IC_CaptureCallback (TIM_HandleTypeDef * htim)
 {
-    vane_counter++;
-    if (vane_counter == 8){
+    blade_counter++;
+    if (blade_counter == 8){
 	    if(htim->Instance == TIM2) {
-		    infra_data = HAL_TIM_ReadCapturedValue(&ic_timer_handle, TIM_CHANNEL_1);
-		    printf("Infra data: %d\n", infra_data);
+		    fan_rpm = get_rpm(HAL_TIM_ReadCapturedValue(&ic_timer_handle, TIM_CHANNEL_1) + (period_counter * (65535 - 1)));
+            fan_round_counter++;
 	    }
-        vane_counter = 0;
+        blade_counter = 0;
+        period_counter = 0;
     }
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM2) {
+        period_counter++;  
+    }
+}
+
+int get_rpm(int time)
+{
+    float round_time = time / 108000000.0;
+    int rpm = 60 / round_time;
+
+    return rpm;
 }
 
 int _write(int file, char *ptr, int len)
