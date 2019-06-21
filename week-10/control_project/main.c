@@ -14,6 +14,7 @@ GPIO_InitTypeDef ic_gpio;
 void SystemClock_Config(void);
 static void Error_Handler(void);
 int get_rpm(int);
+void set_pwm(void);
 
 volatile uint8_t pwm_val = 0;
 volatile uint8_t uart_flag = 0;
@@ -156,6 +157,7 @@ int main(void)
     init_ic_timer();
     init_PWM();
     init_fan_pin();
+    BSP_LED_Init(LED1);
 
     HAL_TIM_PWM_Start(&timer_handle, TIM_CHANNEL_1);
     HAL_TIM_IC_Start_IT(&ic_timer_handle, TIM_CHANNEL_1);
@@ -163,6 +165,8 @@ int main(void)
     HAL_UART_Receive_IT(&uart_handle, &buffer, 1);
 
     int adc_val, adc_val_pwm;
+
+    text = calloc(1, 1);
 
     printf("---------------------------\n");
     printf("Closed loop control project\n");
@@ -172,7 +176,21 @@ int main(void)
     uint32_t prev_time = HAL_GetTick();
     while (1) {
         if (uart_flag == 1){
-            rpm_reference = atoi(text);
+            if (strcmp(text, "boost\r\n") == 0){
+                printf("BOOSTING\n");
+                pwm_val = 50;
+            } else if (strcmp(text, "stop\r\n") == 0){
+                printf("STOPPING\n");
+                pwm_val = 0;
+                rpm_reference = 0;
+            } else {
+                rpm_reference = atoi(text);
+                if (rpm_reference < 500){
+                    printf("RPM reference value must be over 500!\n");
+                    rpm_reference = 500;
+                }
+                printf("RPM SET: %d\n", rpm_reference);
+            }
             free(text);
 		    text = calloc(1, 1);
             uart_flag = 0;
@@ -187,6 +205,7 @@ int main(void)
         }
         __HAL_TIM_SET_COMPARE(&timer_handle, TIM_CHANNEL_1, pwm_val);
         HAL_Delay(10);
+        BSP_LED_Off(LED1);
     }
 }
 
@@ -201,10 +220,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	text = realloc(text, length + 2);
 	text[length] = buffer;
 	text[length + 1] = '\0';
+	HAL_UART_Receive_IT(&uart_handle, &buffer, 1);
 
     uart_flag = 1;
-
-	HAL_UART_Receive_IT(&uart_handle, &buffer, 1);
 }
 
 void TIM2_IRQHandler(void)
@@ -220,24 +238,16 @@ void HAL_TIM_IC_CaptureCallback (TIM_HandleTypeDef * htim)
 		    fan_rpm = get_rpm(HAL_TIM_ReadCapturedValue(&ic_timer_handle, TIM_CHANNEL_1) + (period_counter * (65535 - 1)));
             fan_round_counter++;
 	    }
+        set_pwm();
         blade_counter = 0;
         period_counter = 0;
-        if (rpm_reference - fan_rpm > 50 || fan_rpm - rpm_reference > 50){
-            if (fan_rpm < rpm_reference) {
-                if (pwm_val < 99)
-                    pwm_val++;
-            } else if (fan_rpm > rpm_reference) {
-                if (pwm_val > 1)
-                    pwm_val--;
-            }
-    }
     }
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM2) {
-        period_counter++;  
+        period_counter++;
     }
 }
 
@@ -247,6 +257,23 @@ int get_rpm(int time)
     int rpm = 60 / round_time;
 
     return rpm;
+}
+
+void set_pwm(void)
+{
+    if (rpm_reference - fan_rpm > 25 || fan_rpm - rpm_reference > 25){
+            if (fan_rpm < rpm_reference) {
+                if (pwm_val < 99){
+                    BSP_LED_On(LED1);
+                    pwm_val++;
+                }
+            } else if (fan_rpm > rpm_reference) {
+                if (pwm_val > 24){
+                    BSP_LED_On(LED1);
+                    pwm_val--;
+                }
+            }
+    }
 }
 
 int _write(int file, char *ptr, int len)
