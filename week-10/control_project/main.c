@@ -23,6 +23,7 @@ volatile uint8_t blade_counter = 0;
 volatile uint16_t period_counter = 0;
 volatile uint16_t fan_rpm;
 volatile uint32_t fan_round_counter = 0;
+volatile uint16_t rpm_reference = 0;
 
 void init_uart()
 {
@@ -168,10 +169,10 @@ int main(void)
     printf("     WORK IN PROGRESS\n");
     printf("---------------------------\n");
 
-
+    uint32_t prev_time = HAL_GetTick();
     while (1) {
         if (uart_flag == 1){
-            pwm_val = atoi(text);
+            rpm_reference = atoi(text);
             free(text);
 		    text = calloc(1, 1);
             uart_flag = 0;
@@ -179,9 +180,13 @@ int main(void)
         HAL_ADC_Start(&adc_handle);
         adc_val = HAL_ADC_GetValue(&adc_handle);
         adc_val_pwm = ((float)adc_val / 4095) * 100;
-        printf("PWM: %d | RPM: %d | CNT: %d\n", pwm_val, fan_rpm, fan_round_counter);
+        if (HAL_GetTick() - prev_time > 500){
+            //printf("PWM: %d | RPM: %d | REF: %d\n", pwm_val, fan_rpm, rpm_reference);
+            printf("%d;%d;%d\n", pwm_val, fan_rpm, rpm_reference); // Excel compatible data logging
+            prev_time = HAL_GetTick(); 
+        }
         __HAL_TIM_SET_COMPARE(&timer_handle, TIM_CHANNEL_1, pwm_val);
-        HAL_Delay(500);
+        HAL_Delay(10);
     }
 }
 
@@ -217,6 +222,15 @@ void HAL_TIM_IC_CaptureCallback (TIM_HandleTypeDef * htim)
 	    }
         blade_counter = 0;
         period_counter = 0;
+        if (rpm_reference - fan_rpm > 50 || fan_rpm - rpm_reference > 50){
+            if (fan_rpm < rpm_reference) {
+                if (pwm_val < 99)
+                    pwm_val++;
+            } else if (fan_rpm > rpm_reference) {
+                if (pwm_val > 1)
+                    pwm_val--;
+            }
+    }
     }
 }
 
